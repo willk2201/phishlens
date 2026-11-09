@@ -1,0 +1,39 @@
+Authentication-Results: mx.fernhill.example; spf=pass
+ smtp.mailfrom=northwind-bank.example; dkim=pass
+ header.d=northwind-bank.example; dmarc=pass
+ header.from=northwind-bank.example
+Return-Path: <news@northwind-bank.example>
+From: Northwind Bank <news@northwind-bank.example>
+To: alex.taylor@fernhill.example
+Subject: Your November savings update
+Date: Tue, 03 Nov 2026 09:14:00 +0000
+Message-ID: <sample-913805593@phishlens.example>
+MIME-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="===============5129451337215622414=="
+
+--===============5129451337215622414==
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+
+Hello Alex,
+
+Your savings rate is changing next month. You can read the details at https:/=
+/www.northwind-bank.example/savings or in the app.
+
+Northwind Bank
+
+--===============5129451337215622414==
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+
+<p>Hello Alex,</p>
+<p>Your savings rate is changing next month. You can read the details on our
+<a href=3D"https://www.northwind-bank.example/savings">savings page</a> or in=
+ the app.</p>
+<p><a href=3D"https://www.northwind-bank.example/savings">https://www.northwi=
+nd-bank.example/savings</a></p>
+<p>Northwind Bank</p>
+
+--===============5129451337215622414==--

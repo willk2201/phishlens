@@ -1,0 +1,25 @@
+Authentication-Results: mx.fernhill.example; spf=fail
+ smtp.mailfrom=n0rthwind-bank.example; dkim=none; dmarc=fail
+ header.from=n0rthwind-bank.example
+Return-Path: <security@n0rthwind-bank.example>
+From: Northwind Bank Security <security@n0rthwind-bank.example>
+To: alex.taylor@fernhill.example
+Reply-To: northwind.help@freemail.example
+Subject: URGENT: Your account has been suspended
+Date: Tue, 03 Nov 2026 09:14:00 +0000
+Message-ID: <sample-3963233221@phishlens.example>
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+
+<p>Dear Customer,</p>
+<p>We detected unusual sign-in activity. Your account has been suspended to p=
+rotect you.</p>
+<p>To restore access you must verify your identity within 24 hours, or your a=
+ccount will be
+closed permanently.</p>
+<p><a href=3D"http://203.0.113.50/northwind/login.php">https://www.northwind-=
+bank.example/secure</a></p>
+<p>Or sign in here: <a href=3D"https://northwind-bank.example.account-verify.=
+example/login">Restore access</a></p>
+<p>Northwind Bank Security Team</p>

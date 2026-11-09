@@ -1,0 +1,3 @@
+# Extra domains to protect, one per line (added to the built-in list).
+# The samples impersonate this fictional bank:
+northwind-bank.example

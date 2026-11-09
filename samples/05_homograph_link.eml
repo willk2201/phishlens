@@ -1,0 +1,21 @@
+Authentication-Results: mx.fernhill.example; spf=pass
+ smtp.mailfrom=xn--nrthwind-bank-i7k.example; dkim=pass
+ header.d=xn--nrthwind-bank-i7k.example; dmarc=pass
+Return-Path: <alerts@xn--nrthwind-bank-i7k.example>
+From: Northwind Bank <alerts@xn--nrthwind-bank-i7k.example>
+To: alex.taylor@fernhill.example
+Subject: Action required: confirm your payment details
+Date: Tue, 03 Nov 2026 09:14:00 +0000
+Message-ID: <sample-3272072470@phishlens.example>
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+
+<p>Hello,</p>
+<p>A recent payment could not be processed. Please confirm your payment detai=
+ls to avoid
+interruption to your service.</p>
+<p><a href=3D"https://northwind-bank.example@198.51.100.7/confirm">Confirm pa=
+yment details</a></p>
+<p><a href=3D"https://xn--nrthwind-bank-i7k.example/billing">View your accoun=
+t</a></p>

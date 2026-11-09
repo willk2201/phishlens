@@ -1,0 +1,17 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+build/
+dist/
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+report.html
+report.json
+*.pem
+# Never commit real emails you have received: they contain personal data.
+*.eml
+!samples/*.eml

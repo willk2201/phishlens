@@ -1,0 +1,368 @@
+{
+  "tool": "phishlens",
+  "version": "0.1.0",
+  "results": [
+    {
+      "source": "samples/01_legitimate_newsletter.eml",
+      "verdict": "Likely safe",
+      "score": 0,
+      "email": {
+        "subject": "Your November savings update",
+        "from_name": "Northwind Bank",
+        "from_address": "news@northwind-bank.example",
+        "reply_to": null,
+        "links": [
+          {
+            "href": "hxxps://www[.]northwind-bank[.]example/savings",
+            "text": ""
+          },
+          {
+            "href": "hxxps://www[.]northwind-bank[.]example/savings",
+            "text": "savings page"
+          },
+          {
+            "href": "hxxps://www[.]northwind-bank[.]example/savings",
+            "text": "https://www.northwind-bank.example/savings"
+          }
+        ],
+        "attachments": []
+      },
+      "summary": {
+        "high": 0,
+        "medium": 0,
+        "low": 0,
+        "info": 0
+      },
+      "findings": []
+    },
+    {
+      "source": "samples/02_account_suspended.eml",
+      "verdict": "Likely phishing",
+      "score": 100,
+      "email": {
+        "subject": "URGENT: Your account has been suspended",
+        "from_name": "Northwind Bank Security",
+        "from_address": "security@n0rthwind-bank.example",
+        "reply_to": "northwind.help@freemail.example",
+        "links": [
+          {
+            "href": "hxxp://203[.]0[.]113[.]50/northwind/login.php",
+            "text": "https://www.northwind-bank.example/secure"
+          },
+          {
+            "href": "hxxps://northwind-bank[.]example[.]account-verify[.]example/login",
+            "text": "Restore access"
+          }
+        ],
+        "attachments": []
+      },
+      "summary": {
+        "high": 7,
+        "medium": 2,
+        "low": 2,
+        "info": 1
+      },
+      "findings": [
+        {
+          "check_id": "PL-A01",
+          "category": "authentication",
+          "title": "DMARC fail",
+          "severity": "high",
+          "explanation": "The visible From address (n0rthwind-bank.example) is not backed by a passing SPF or DKIM check. This is the strongest sign the sender is being impersonated.",
+          "evidence": "dmarc=fail"
+        },
+        {
+          "check_id": "PL-L01",
+          "category": "links",
+          "title": "Link text hides a different destination",
+          "severity": "high",
+          "explanation": "The link says 'www.northwind-bank.example' but actually goes to '203.0.113.50'. Hovering over a link (or long-pressing on a phone) shows its real destination.",
+          "evidence": "text=hxxps://www[.]northwind-bank[.]example/secure  href=hxxp://203[.]0[.]113[.]50/northwind/login.php"
+        },
+        {
+          "check_id": "PL-L02",
+          "category": "links",
+          "title": "Link points to a raw IP address",
+          "severity": "high",
+          "explanation": "Legitimate organisations link to their domain name, not a bare server address. This usually means a hastily set-up or compromised server.",
+          "evidence": "hxxp://203[.]0[.]113[.]50/northwind/login.php"
+        },
+        {
+          "check_id": "PL-L02",
+          "category": "links",
+          "title": "Link to a look-alike domain",
+          "severity": "high",
+          "explanation": "'northwind-bank.example.account-verify.example' imitates 'northwind-bank.example'. Fake login pages are hosted on domains like this to collect passwords.",
+          "evidence": "hxxps://northwind-bank[.]example[.]account-verify[.]example/login"
+        },
+        {
+          "check_id": "PL-S01",
+          "category": "sender",
+          "title": "Sender domain imitates northwind-bank.example",
+          "severity": "high",
+          "explanation": "The email comes from 'n0rthwind-bank.example', which is designed to look like 'northwind-bank.example' at a glance (swapped or extra characters, or the real name used as part of a different domain).",
+          "evidence": "security@n0rthwind-bank.example"
+        },
+        {
+          "check_id": "PL-S02",
+          "category": "sender",
+          "title": "Display name claims to be Northwind Bank",
+          "severity": "high",
+          "explanation": "The name shown is 'Northwind Bank Security', but the real address is 'security@n0rthwind-bank.example', which does not belong to northwind-bank.example. Most email apps show only the name, hiding the real address.",
+          "evidence": "Northwind Bank Security <security@n0rthwind-bank.example>"
+        },
+        {
+          "check_id": "PL-S03",
+          "category": "sender",
+          "title": "Replies go to a different domain",
+          "severity": "high",
+          "explanation": "The email is from 'n0rthwind-bank.example', but pressing Reply sends your answer to 'northwind.help@freemail.example'. Scammers do this so the conversation reaches them, not the real organisation.",
+          "evidence": "Reply-To: northwind.help@freemail.example"
+        },
+        {
+          "check_id": "PL-A01",
+          "category": "authentication",
+          "title": "SPF fail",
+          "severity": "medium",
+          "explanation": "The email was sent from a server that n0rthwind-bank.example explicitly does not authorise, so the sender address is probably forged.",
+          "evidence": "spf=fail"
+        },
+        {
+          "check_id": "PL-C01",
+          "category": "content",
+          "title": "Asks for passwords or personal details",
+          "severity": "medium",
+          "explanation": "Real organisations never ask you to confirm a password or card details by email.",
+          "evidence": "\"verify your identity\""
+        },
+        {
+          "check_id": "PL-A01",
+          "category": "authentication",
+          "title": "DKIM none",
+          "severity": "low",
+          "explanation": "The email carries no digital signature from the sender's domain.",
+          "evidence": "dkim=none"
+        },
+        {
+          "check_id": "PL-C01",
+          "category": "content",
+          "title": "Urgent or threatening language",
+          "severity": "low",
+          "explanation": "Creates time pressure so you act before thinking it through.",
+          "evidence": "\"within 24 hours\", \"URGENT\", \"account has been suspended\", \"unusual sign-in\""
+        },
+        {
+          "check_id": "PL-C01",
+          "category": "content",
+          "title": "Generic greeting",
+          "severity": "info",
+          "explanation": "Mass phishing doesn't know your name. On its own this is common in legitimate newsletters too.",
+          "evidence": "\"Dear Customer\""
+        }
+      ]
+    },
+    {
+      "source": "samples/03_invoice_attachment.eml",
+      "verdict": "Likely phishing",
+      "score": 77,
+      "email": {
+        "subject": "Final notice: overdue invoice INV-20931",
+        "from_name": "Accounts Payable",
+        "from_address": "billing@fastpay-invoices.example",
+        "reply_to": null,
+        "links": [],
+        "attachments": [
+          "Invoice_INV-20931.pdf.exe",
+          "Remittance_Form.html"
+        ]
+      },
+      "summary": {
+        "high": 1,
+        "medium": 1,
+        "low": 3,
+        "info": 0
+      },
+      "findings": [
+        {
+          "check_id": "PL-F01",
+          "category": "attachments",
+          "title": "Disguised file extension",
+          "severity": "high",
+          "explanation": "'Invoice_INV-20931.pdf.exe' pretends to be a .pdf file but is really .exe. Windows hides known extensions by default, so it shows as 'Invoice_INV-20931.pdf'.",
+          "evidence": "Invoice_INV-20931.pdf.exe"
+        },
+        {
+          "check_id": "PL-F01",
+          "category": "attachments",
+          "title": "HTML attachment",
+          "severity": "medium",
+          "explanation": "An attached web page opens locally in your browser, often as a fake sign-in form, and avoids the scanners that check links.",
+          "evidence": "Remittance_Form.html"
+        },
+        {
+          "check_id": "PL-A01",
+          "category": "authentication",
+          "title": "DMARC none",
+          "severity": "low",
+          "explanation": "fastpay-invoices.example publishes no DMARC policy, so receiving servers have no instruction to reject forged email that claims to be from it.",
+          "evidence": "dmarc=none"
+        },
+        {
+          "check_id": "PL-A01",
+          "category": "authentication",
+          "title": "SPF softfail",
+          "severity": "low",
+          "explanation": "The email was sent from a server fastpay-invoices.example does not list as authorised. Weaker than a hard fail, but still a warning sign.",
+          "evidence": "spf=softfail"
+        },
+        {
+          "check_id": "PL-C01",
+          "category": "content",
+          "title": "Urgent or threatening language",
+          "severity": "low",
+          "explanation": "Creates time pressure so you act before thinking it through.",
+          "evidence": "\"immediately\", \"Final notice\", \"legal action\""
+        }
+      ]
+    },
+    {
+      "source": "samples/04_ceo_gift_cards.eml",
+      "verdict": "Likely phishing",
+      "score": 62,
+      "email": {
+        "subject": "Quick favour",
+        "from_name": "Sarah Mitchell (CEO)",
+        "from_address": "s.mitchell.ceo@freemail.example",
+        "reply_to": null,
+        "links": [],
+        "attachments": []
+      },
+      "summary": {
+        "high": 0,
+        "medium": 3,
+        "low": 1,
+        "info": 0
+      },
+      "findings": [
+        {
+          "check_id": "PL-C01",
+          "category": "content",
+          "title": "Unusual payment request",
+          "severity": "medium",
+          "explanation": "Requests for gift cards, wire transfers or changed bank details are the core of invoice and CEO fraud.",
+          "evidence": "\"gift cards\""
+        },
+        {
+          "check_id": "PL-C01",
+          "category": "content",
+          "title": "Asks you to keep it secret",
+          "severity": "medium",
+          "explanation": "Secrecy stops you checking with a colleague, which is exactly how these scams get caught.",
+          "evidence": "\"keep this between us\", \"I'm in a meeting\""
+        },
+        {
+          "check_id": "PL-S02",
+          "category": "sender",
+          "title": "Official-sounding sender using free webmail",
+          "severity": "medium",
+          "explanation": "'Sarah Mitchell (CEO)' sounds like an organisation or senior role, but the email was sent from a free freemail.example account. Organisations email from their own domain; this pattern is typical of CEO fraud.",
+          "evidence": "Sarah Mitchell (CEO) <s.mitchell.ceo@freemail.example>"
+        },
+        {
+          "check_id": "PL-C01",
+          "category": "content",
+          "title": "Urgent or threatening language",
+          "severity": "low",
+          "explanation": "Creates time pressure so you act before thinking it through.",
+          "evidence": "\"urgently\""
+        }
+      ]
+    },
+    {
+      "source": "samples/05_homograph_link.eml",
+      "verdict": "Likely phishing",
+      "score": 100,
+      "email": {
+        "subject": "Action required: confirm your payment details",
+        "from_name": "Northwind Bank",
+        "from_address": "alerts@xn--nrthwind-bank-i7k.example",
+        "reply_to": null,
+        "links": [
+          {
+            "href": "hxxps://northwind-bank[.]example@198[.]51[.]100[.]7/confirm",
+            "text": "Confirm payment details"
+          },
+          {
+            "href": "hxxps://xn--nrthwind-bank-i7k[.]example/billing",
+            "text": "View your account"
+          }
+        ],
+        "attachments": []
+      },
+      "summary": {
+        "high": 5,
+        "medium": 2,
+        "low": 0,
+        "info": 0
+      },
+      "findings": [
+        {
+          "check_id": "PL-L02",
+          "category": "links",
+          "title": "Link points to a raw IP address",
+          "severity": "high",
+          "explanation": "Legitimate organisations link to their domain name, not a bare server address. This usually means a hastily set-up or compromised server.",
+          "evidence": "hxxps://northwind-bank[.]example@198[.]51[.]100[.]7/confirm"
+        },
+        {
+          "check_id": "PL-L02",
+          "category": "links",
+          "title": "Link contains '@' to disguise its destination",
+          "severity": "high",
+          "explanation": "In 'https://trusted.com@evil.example', everything before the @ is ignored and the browser goes to evil.example.",
+          "evidence": "hxxps://northwind-bank[.]example@198[.]51[.]100[.]7/confirm"
+        },
+        {
+          "check_id": "PL-L02",
+          "category": "links",
+          "title": "Link to a look-alike domain",
+          "severity": "high",
+          "explanation": "'xn--nrthwind-bank-i7k.example' (displayed as 'nоrthwind-bank.example') imitates 'northwind-bank.example'. Fake login pages are hosted on domains like this to collect passwords.",
+          "evidence": "hxxps://xn--nrthwind-bank-i7k[.]example/billing"
+        },
+        {
+          "check_id": "PL-S01",
+          "category": "sender",
+          "title": "Sender domain imitates northwind-bank.example",
+          "severity": "high",
+          "explanation": "The email comes from 'xn--nrthwind-bank-i7k.example' (displayed as 'nоrthwind-bank.example'), which is designed to look like 'northwind-bank.example' at a glance (swapped or extra characters, or the real name used as part of a different domain).",
+          "evidence": "alerts@xn--nrthwind-bank-i7k.example"
+        },
+        {
+          "check_id": "PL-S02",
+          "category": "sender",
+          "title": "Display name claims to be Northwind Bank",
+          "severity": "high",
+          "explanation": "The name shown is 'Northwind Bank', but the real address is 'alerts@xn--nrthwind-bank-i7k.example', which does not belong to northwind-bank.example. Most email apps show only the name, hiding the real address.",
+          "evidence": "Northwind Bank <alerts@xn--nrthwind-bank-i7k.example>"
+        },
+        {
+          "check_id": "PL-C01",
+          "category": "content",
+          "title": "Asks for passwords or personal details",
+          "severity": "medium",
+          "explanation": "Real organisations never ask you to confirm a password or card details by email.",
+          "evidence": "\"confirm your payment\""
+        },
+        {
+          "check_id": "PL-S01",
+          "category": "sender",
+          "title": "Sender domain uses international characters",
+          "severity": "medium",
+          "explanation": "The domain 'xn--nrthwind-bank-i7k.example' (displayed as 'nоrthwind-bank.example') is written in punycode (xn--), meaning it contains non-Latin characters that can look identical to normal letters.",
+          "evidence": "xn--nrthwind-bank-i7k.example"
+        }
+      ]
+    }
+  ]
+}

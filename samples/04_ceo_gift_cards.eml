@@ -1,0 +1,24 @@
+Authentication-Results: mx.fernhill.example; spf=pass
+ smtp.mailfrom=freemail.example; dkim=pass header.d=freemail.example;
+ dmarc=pass header.from=freemail.example
+Return-Path: <s.mitchell.ceo@freemail.example>
+From: "Sarah Mitchell (CEO)" <s.mitchell.ceo@freemail.example>
+To: alex.taylor@fernhill.example
+Subject: Quick favour
+Date: Tue, 03 Nov 2026 09:14:00 +0000
+Message-ID: <sample-3258803539@phishlens.example>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+
+Hi Alex,
+
+Are you at your desk? I'm in a meeting all afternoon and need a quick favour.=
+ I need you to buy six =C2=A3100 gift cards for a client today, urgently. I'l=
+l reimburse you this evening.
+
+Please keep this between us for now, it's a surprise. Send me the codes by em=
+ail when you have them.
+
+Sarah
+Sent from my phone

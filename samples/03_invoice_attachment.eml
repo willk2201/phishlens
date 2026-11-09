@@ -1,0 +1,43 @@
+Authentication-Results: mx.fernhill.example; spf=softfail
+ smtp.mailfrom=fastpay-invoices.example; dkim=pass
+ header.d=fastpay-invoices.example; dmarc=none
+Return-Path: <billing@fastpay-invoices.example>
+From: Accounts Payable <billing@fastpay-invoices.example>
+To: alex.taylor@fernhill.example
+Subject: Final notice: overdue invoice INV-20931
+Date: Tue, 03 Nov 2026 09:14:00 +0000
+Message-ID: <sample-712912538@phishlens.example>
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="===============0107188174589838528=="
+
+--===============0107188174589838528==
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+
+Hello,
+
+This is a final notice regarding invoice INV-20931, which is now 30 days over=
+due. Please review the attached invoice and remittance form immediately to av=
+oid legal action.
+
+Accounts Payable
+
+--===============0107188174589838528==
+Content-Type: application/octet-stream
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename="Invoice_INV-20931.pdf.exe"
+MIME-Version: 1.0
+
+SGFybWxlc3MgcGxhY2Vob2xkZXIgdXNlZCB0byB0ZXN0IFBoaXNoTGVucy4gTm90IGEgcmVhbCBw
+cm9ncmFtLgo=
+
+--===============0107188174589838528==
+Content-Type: text/html
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename="Remittance_Form.html"
+MIME-Version: 1.0
+
+PGh0bWw+PGJvZHk+PHA+UGxhY2Vob2xkZXIgcGFnZSBmb3IgUGhpc2hMZW5zIHRlc3RzLjwvcD48
+L2JvZHk+PC9odG1sPg==
+
+--===============0107188174589838528==--
